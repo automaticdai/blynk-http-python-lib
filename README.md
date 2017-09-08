@@ -12,14 +12,15 @@ Blynk is a IoT platform that eases the steps for building fast IoT prototypes wi
 ```python
 import blynk_http
 
-blynk_http.init()
-blynk_http.read()
+blynk_http.init('your_blynk_token')
+blynk_http.read('pin_name', 'value')
 # or
-blynk_http.write()
+blynk_http.write('pin_name')
 ```
 
 
 ## Supported Blynk Widgets
+Supported list:
 
 - (Labeled) Value Display
 - LED
@@ -39,8 +40,15 @@ Not supported yet:
 - Timer
 - Joystick
 - Step
+- Send Email
+- Push Notification
 
+## Todo List
+Todo:
+- Function parameter types are not checked
+- Read pin history data
+- Analyse the returned value from the 'Get_Project' API
 
-## Known Issues
-
-- Terminal: can't flush the terminal
+Known issues:
+- Terminal widget: can't flush
+- Network status APIs not implemented as I think they have limited utilities.
