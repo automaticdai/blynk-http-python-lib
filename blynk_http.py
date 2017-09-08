@@ -15,18 +15,18 @@ opt_report_err_on = True
 def init(token):
     global auth_token
     auth_token = token
-    report(auth_token)
+    report('initialized with token: ' + auth_token)
 
 
 def report(msg):
     if opt_report_on:
-        print('>>blynk ', end='')
+        print('<blynk> info: ', end='')
         print(msg)
 
 
 def report_err(err_msg):
     if opt_report_err_on:
-        print('>>blynk error: ', end='')
+        print('<blynk> error: ', end='')
         print(err_msg)
 
 
@@ -37,7 +37,6 @@ def write(pin, value):
         pass
     url = base_url + auth_token + '/update/' + pin + '?value=' + value
     response = requests.get(url)
-    report('send: ' + url)
     report(response)
 
 
@@ -51,7 +50,7 @@ def read_history(pin):
     pass
 
 
-def set_widget_property(pin, property_name, property_val):
+def set_property(pin, property_name, property_val):
     pass
 
 
@@ -59,7 +58,7 @@ def send_notification(notify_msg):
     url = base_url + auth_token + '/notify'
     payload = {'body': notify_msg}
     response = requests.post(url, json=payload)
-    print(response)
+    report(response)
 
 
 def set_email_address(addr):
@@ -69,17 +68,17 @@ def set_email_address(addr):
 
 def send_email(email_payload):
     if email_address == ' ':
-        report_err("email address is empty. Use set_email_address('your_email') first!")
+        report_err("destination email address is empty. Use set_email_address('your_email') first!")
         return
 
     url = base_url + auth_token + '/email'
     payload = {'to': email_address, 'subj': 'Blynk Notification', 'title': email_payload}
     response = requests.post(url, json=payload)
-    print(response)
+    report(response)
 
 
 def get_project_details():
     url = base_url + auth_token + '/project'
     response = requests.get(url)
-    print(response.text)
+    report(response.text)
     return
