@@ -36,7 +36,7 @@ def report(msg):
         print(msg)
 
 
-def report_err(err_msg):
+def report_error(err_msg):
     if opt_report_err_on == True:
         print('<blynk> error: ', end='')
         print(err_msg)
@@ -49,13 +49,17 @@ def write(pin, value):
         pass
     url = base_url + auth_token + '/update/' + pin + '?value=' + value
     response = requests.get(url)
-    report(response)
+    if (response.status_code == requests.codes.ok):
+        report('write pin ok')
+    else:
+        report_error('write pin failed')
 
 
 def read(pin):
     url = base_url + auth_token + '/get/' + pin
     response = requests.get(url)
-    report(response.text)
+    report('read pin:' + response.text)
+    return response.text
 
 
 def read_history(pin):
@@ -70,21 +74,21 @@ def send_notification(notify_msg):
     url = base_url + auth_token + '/notify'
     payload = {'body': notify_msg}
     response = requests.post(url, json=payload)
-    report(response)
+    report(response.status_code)
 
 
 def send_email(email_payload):
     if email_address == ' ':
-        report_err("destination email address is empty. Use set_email_address('your_email') first!")
+        report_error("destination email address is empty. Use set_email_address('your_email') first!")
         return
 
     url = base_url + auth_token + '/email'
     payload = {'to': email_address, 'subj': 'Blynk Notification', 'title': email_payload}
     response = requests.post(url, json=payload)
-    report(response)
+    report(response.status_code)
 
 
-def get_project_details():
+def get_project_property():
     url = base_url + auth_token + '/project'
     response = requests.get(url)
     report(response.text)
