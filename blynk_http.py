@@ -1,5 +1,5 @@
 # blynk_http.py
-# A python library for comunicating with Blynk that uses RESTful APIs.
+# A python library for communicating with Blynk that uses RESTful APIs.
 # http://docs.blynkapi.apiary.io/
 
 import requests
