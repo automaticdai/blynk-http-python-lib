@@ -1,10 +1,17 @@
+# ------------------------------------------------------------------------------
 # blynk_http.py
-# A python library for communicating with Blynk that uses RESTful APIs.
-# http://docs.blynkapi.apiary.io/
+# Author: Xiaotian Dai
+# Published: Sep, 2017
+# Version: v1.0
+# Notes:
+#   A python library for updating Blynk widgets with RESTful APIs.
+#   See reference: http://docs.blynkapi.apiary.io/
+# ------------------------------------------------------------------------------
 
 import requests
 
 base_url = 'http://blynk-cloud.com/'
+
 auth_token = ' '
 email_address = ' '
 
@@ -18,14 +25,19 @@ def init(token):
     report('initialized with token: ' + auth_token)
 
 
+def set_email_address(addr):
+    global email_address
+    email_address = addr
+
+
 def report(msg):
-    if opt_report_on:
+    if opt_report_on == True:
         print('<blynk> info: ', end='')
         print(msg)
 
 
 def report_err(err_msg):
-    if opt_report_err_on:
+    if opt_report_err_on == True:
         print('<blynk> error: ', end='')
         print(err_msg)
 
@@ -59,11 +71,6 @@ def send_notification(notify_msg):
     payload = {'body': notify_msg}
     response = requests.post(url, json=payload)
     report(response)
-
-
-def set_email_address(addr):
-    global email_address
-    email_address = addr
 
 
 def send_email(email_payload):
