@@ -12,14 +12,14 @@ import requests
 
 base_url = 'http://blynk-cloud.com/'
 
-auth_token = ' '
-email_address = ' '
+auth_token = ''
+email_address = ''
 
 opt_report_on = True
 opt_report_err_on = True
 
 
-def init(token):
+def init(token: String):
     global auth_token
     auth_token = token
     report('initialized with token: ' + auth_token)
@@ -78,7 +78,7 @@ def send_notification(notify_msg):
 
 
 def send_email(email_payload):
-    if email_address == ' ':
+    if not email_address:
         report_error("destination email address is empty. Use set_email_address('your_email') first!")
         return
 

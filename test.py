@@ -10,10 +10,17 @@ blk.init(token)
 # write to pin
 #blk.write('V0', datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p"))
 
-blk.write('V3', '1')
+blk.write('V0', '100')
+blk.write('V1', '200')
+blk.write('V2', '300')
+blk.write('V3', '10')
 
 # read from pin
-#blk.read('V5')
+print((blk.read('V0')))
+
+blk.get_project_property()
+
+
 
 # Send an email notification
 #blk.set_email_address("automatic.dai@gmail.com")
